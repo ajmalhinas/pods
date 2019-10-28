@@ -1,1 +1,1 @@
-mysql</workspace/pods/podConfs/mysqlInit.sql
+mysql</{$GITPOD_REPO_ROOT}/podConfs/mysqlInit.sql

@@ -7,7 +7,7 @@ tasks:
 - name: initAndStartServers  #- means terminal
   command: >
     cp .env.example .env;
-    bash /workspace/pods/podConfs/startup.sh;
+    bash $GITPOD_REPO_ROOT/podConfs/startup.sh;
     gp preview $(gp url 8080)/phpmyadmin;
   init: echo "I am init executed before command"
 - name: Terminal

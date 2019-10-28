@@ -11,10 +11,10 @@ then
     [ ! -d /workspace/mysql ] && mysqld --initialize-insecure
 
     # launch database, if not running
-    [ ! -e /var/run/mysqld/mysqld.pid ] && mysqld --daemonize
+    [ ! -e /var/run/mysqld/mysqld.pid ] && mysqld --daemonize --log-error
 
     rm /var/run/mysqld/gitpod-init.lock
 fi
 #service apache2 restart  #not working due to environment variables are not drived
 apachectl start
-mysql</workspace/pods/podConfs/mysqlInit.sql
+mysql<$GITPOD_REPO_ROOT/podConfs/mysqlInit.sql
