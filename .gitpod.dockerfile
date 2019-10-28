@@ -3,6 +3,8 @@ FROM gitpod/workspace-full
 
 #prevent interactive promts when installation
 ENV DEBIAN_FRONTEND=noninteractive
+#workaround for unavailability of $GITPOD_REPO_ROOT
+ENV REPO_ROOT=/workspace/pods/
 
 USER root
 
@@ -14,11 +16,11 @@ RUN apt-get update && apt-get -y install mysql-server apache2 phpmyadmin \
  && rm -r /var/lib/mysql/* \
  && chown -R gitpod:gitpod /var/www /var/run/apache2 /var/lock/apache2 \
  && ln -s  /usr/share/phpmyadmin  /var/www/html/phpmyadmin \
- && echo "include /workspace/pods/podConfs/apache/apache.conf" > /etc/apache2/apache2.conf \
- && echo ". /workspace/pods/podConfs/apache/envvars" > /etc/apache2/envvars \
- && echo "!include /workspace/pods/podConfs/mysql/mysql.cnf" > /etc/mysql/my.cnf
+ && echo "include $REPO_ROOT/podConfs/apache/apache.conf" > /etc/apache2/apache2.conf \
+ && echo ". $REPO_ROOT/podConfs/apache/envvars" > /etc/apache2/envvars \
+ && echo "!include $REPO_ROOT/podConfs/mysql/mysql.cnf" > /etc/mysql/my.cnf
 
-
+#USER root  no need. This operation is perfomed by gitpod layer
 
 
 
