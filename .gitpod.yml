@@ -1,0 +1,21 @@
+image:
+  file: .gitpod.dockerfile
+ports:
+- port: 8080
+- port: 3306
+tasks:
+- name: initAndStartServers  #- means terminal
+  command: >
+    cp .env.example .env;
+    bash /workspace/pods/podConfs/startup.sh;
+    gp preview $(gp url 8080)/phpmyadmin;
+  init: echo "I am init executed before command"
+- name: Terminal
+  command: >
+    echo "Welcome!";
+    echo "";
+    echo "Start, stop or review Apache errors:";
+    echo " * apachectl stop";
+    echo " * apachectl start";
+    echo " * gp open /var/log/apache2/access.log";
+    echo " * gp open /var/log/apache2/error.log";
