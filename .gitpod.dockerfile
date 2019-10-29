@@ -1,5 +1,6 @@
 
-FROM gitpod/workspace-full
+FROM ubuntu:18.04
+#FROM gitpod/workspace-full
 
 #prevent interactive promts when installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -13,13 +14,22 @@ ENV TOMCAT_URL=https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.27/bin/apache
 
 USER root
 
-RUN apt-get update && apt-get -y install mysql-server apache2 phpmyadmin \
+### Gitpod user ###
+# '-l': see https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
+RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod
+ENV HOME=/home/gitpod
+WORKDIR $HOME
+# custom Bash prompt
+RUN { echo && echo "PS1='\[\e]0;\u \w\a\]\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\] \\\$ '" ; } >> .bashrc
+
+
+RUN apt-get update && apt-get -y install wget mysql-server apache2 phpmyadmin \
  && apt-get clean && rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/* \
  && mkdir /var/run/mysqld \
  && chown -R gitpod:gitpod /etc/mysql /var/run/mysqld /var/log/mysql /var/lib/mysql /var/lib/mysql-files /var/lib/mysql-keyring /var/lib/mysql-upgrade \
  #removes default data (user) files which prevents login to non root
  && rm -r /var/lib/mysql/* \
- && chown -R gitpod:gitpod /var/www /var/run/apache2 /var/lock/apache2 \
+ && chown -R gitpod:gitpod /var/www /var/run/apache2 /var/lock/apache2  /var/log/apache2 \
  && ln -s  /usr/share/phpmyadmin  /var/www/html/phpmyadmin \
  && echo "include $REPO_ROOT/podConfs/apache/apache.conf" > /etc/apache2/apache2.conf \
  && echo ". $REPO_ROOT/podConfs/apache/envvars" > /etc/apache2/envvars \
