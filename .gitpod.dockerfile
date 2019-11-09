@@ -26,7 +26,7 @@ WORKDIR $HOME
 RUN { echo && echo "PS1='\[\e]0;\u \w\a\]\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\] \\\$ '" ; } >> .bashrc
 
 
-RUN apt-get update && apt-get -y install wget mysql-server apache2 phpmyadmin \
+RUN apt-get update && apt-get -y install wget mysql-server apache2 phpmyadmin gradle\
  && apt-get clean && rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/* \
  && mkdir /var/run/mysqld \
  && chown -R gitpod:gitpod /etc/mysql /var/run/mysqld /var/log/mysql /var/lib/mysql /var/lib/mysql-files /var/lib/mysql-keyring /var/lib/mysql-upgrade \
@@ -54,6 +54,15 @@ RUN apt-get update && apt-get -y install wget mysql-server apache2 phpmyadmin \
  && mv apache-tomcat-9.0.27 tomcat  \
  && rm apache-tomcat-9.0.27.tar.gz  \
  && chown -R gitpod:gitpod $CATALINA_BASE
+
+
+
+#RUN wget https://get.sdkman.io | bash \
+# && bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh \
+#             && sdk install gradle"
+
+# above, we are adding the sdkman init to .bashrc (executing sdkman-init.sh does that), because one is executed on interactive shells, the other for non-interactive shells (e.g. plugin-host)
+ENV GRADLE_USER_HOME=/workspace/.gradle/
 
 
 
