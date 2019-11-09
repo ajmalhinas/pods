@@ -5,12 +5,13 @@ FROM ubuntu:18.04
 #prevent interactive promts when installation
 ENV DEBIAN_FRONTEND=noninteractive
 #workaround for unavailability of $GITPOD_REPO_ROOT
-ENV REPO_ROOT=/workspace/pods/
-ENV JDK_PATH=/usr/lib/java11dcevm
-ENV TOMCAT_PATH=/usr/local/
+ARG REPO_ROOT=/workspace/pods/
+
+ARG JDK_PATH=/usr/lib/java11dcevm
+ARG TOMCAT_PATH=/usr/local/
 ENV CATALINA_BASE=$TOMCAT_PATH/tomcat
-ENV JDK_URL=https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/download/dcevm-11.0.1%2B8/java11-openjdk-dcevm-linux.tar.gz
-ENV TOMCAT_URL=https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.27/bin/apache-tomcat-9.0.27.tar.gz
+ARG JDK_URL=https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/download/dcevm-11.0.1%2B8/java11-openjdk-dcevm-linux.tar.gz
+ARG TOMCAT_URL=https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.27/bin/apache-tomcat-9.0.27.tar.gz
 
 USER root
 
