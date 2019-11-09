@@ -17,5 +17,4 @@ then
 fi
 #service apache2 restart  #not working due to environment variables are not drived
 apachectl start
-export JAVA_HOME="/usr/lib/java11dcevm"
 mysql<$GITPOD_REPO_ROOT/podConfs/mysqlInit.sql

@@ -12,6 +12,8 @@ ARG TOMCAT_PATH=/usr/local/
 ENV CATALINA_BASE=$TOMCAT_PATH/tomcat
 ARG JDK_URL=https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/download/dcevm-11.0.1%2B8/java11-openjdk-dcevm-linux.tar.gz
 ARG TOMCAT_URL=https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.27/bin/apache-tomcat-9.0.27.tar.gz
+ENV PATH=$PATH:$JDK_PATH/bin
+ENV JAVA_HOME=/usr/lib/java11dcevm
 
 USER root
 
