@@ -64,9 +64,10 @@ RUN apt-get update && apt-get -y install wget mysql-server apache2 phpmyadmin gr
 # above, we are adding the sdkman init to .bashrc (executing sdkman-init.sh does that), because one is executed on interactive shells, the other for non-interactive shells (e.g. plugin-host)
 ENV GRADLE_USER_HOME=/workspace/.gradle/
 
-
-
-
+#add mysql driver to tomcat
+ ARG MYSQL_CON_URL=https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.48/mysql-connector-java-5.1.48.jar
+ RUN cd  $CATALINA_BASE/lib \
+ && wget $MYSQL_CON_URL
 
 #USER gitpod  This operation is perfomed by gitpod layer. So not needed.
 

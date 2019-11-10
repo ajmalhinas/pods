@@ -1,9 +1,12 @@
 image:
   file: .gitpod.dockerfile
 ports:
-- port: 9080
 - port: 3306
+  onOpen: ignore
+- port: 9080
+  onOpen: ignore
 - port: 8080
+  onOpen: ignore
 tasks:
 - name: initAndStartServers  #- means terminal
   command: >
@@ -22,3 +25,6 @@ tasks:
     echo " * gp open /var/log/apache2/access.log";
     echo " * gp open /var/log/apache2/error.log";
     echo " * mysql user: devuser password: 1 ";
+- name: catalina.out
+  command: >
+    tail -f $CATALINA_BASE/logs/catalina.out
